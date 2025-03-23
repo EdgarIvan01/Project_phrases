@@ -1,98 +1,91 @@
-# Nombre del Proyecto
+# Project phrase
 
-Este proyecto es una aplicación web que utiliza un frontend basado en **Nginx** y un backend desarrollado con **Python Flask**. Ambos componentes están dockerizados para facilitar su despliegue y manejo.
+This project is a web application that uses a frontend based on **Nginx** and a backend developed with **Python Flask**. Both components are Dockerized for easy deployment and management.
 
-## Estructura del Proyecto
+## Project Structure
 
-El proyecto está dividido en dos partes principales:
+The project is divided into two main parts:
 
-1. **Frontend**: Servido desde un contenedor Docker basado en la imagen `nginx:alpine`.
-2. **Backend**: Desarrollado en Python usando Flask y ejecutado en un contenedor Docker.
+1. **Frontend**: Served from a Docker container based on the `nginx:alpine` image.
+2. **Backend**: Developed in Python using Flask and running in a Docker container.
 
-## Requisitos Previos
+## Prerequisites
 
-- Docker instalado en tu máquina.
-- Docker Compose (opcional, pero recomendado para manejar múltiples contenedores).
+- Docker installed on your machine.
+- Docker Compose (optional, but recommended for managing multiple containers).
 
-## Configuración del Proyecto
+## Project Configuration
 
 ### 1. Frontend (Nginx)
 
-El frontend está construido usando la imagen `nginx:alpine`. Los archivos estáticos (HTML, CSS, JS) se sirven directamente desde Nginx.
+The frontend is built using the `nginx:alpine` image. Static files (HTML, CSS, JS) are served directly from Nginx.
 
-- **Dockerfile** (para el frontend):
-  ```Dockerfile
-  FROM nginx:alpine
-  COPY ./frontend /usr/share/nginx/html
-  EXPOSE 80
-  CMD ["nginx", "-g", "daemon off;"]
-  ```
+- **Dockerfile** (for the frontend):
+```Dockerfile
+FROM nginx:alpine
+COPY ./frontend /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
 
-  La carpeta `frontend` contiene los archivos estáticos que se sirven al cliente.
+The `frontend` folder contains the static files served to the client.
 
 ### 2. Backend (Python Flask)
 
-El backend está desarrollado en Python usando el framework Flask. Se ejecuta en un contenedor Docker.
+The backend is developed in Python using the Flask framework. It runs in a Docker container.
 
-- **Dockerfile** (para el backend):
-  ```Dockerfile
-  FROM python:3.9-slim
-  WORKDIR /app
-  COPY requirements.txt .
-  RUN pip install -r requirements.txt
-  COPY . .
-  EXPOSE 5000
-  CMD ["python", "app.py"]
-  ```
-- El archivo `app.py` contiene la lógica del servidor Flask.
-- El archivo `requirements.txt` contiene las dependencias de Python necesarias.
+- **Dockerfile** (for the backend):
+```Dockerfile
+FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+EXPOSE 5000
+CMD ["python", "app.py"]
+```
+- The `app.py` file contains the Flask server logic.
+- The `requirements.txt` file contains the necessary Python dependencies.
 
+### 3. Docker Compose (optional)
 
-  ### 3. Docker Compose (opcional)
-
-Para facilitar el manejo de ambos contenedores, puedes usar Docker Compose. Aquí tienes un ejemplo de un archivo `docker-compose.yml`:
+To make it easier to manage both containers, you can use Docker Compose. Here's an example of a `docker-compose.yml` file:
 
 ```yaml
 version: '3'
 services:
-  frontend:
-    build: ./frontend
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
+frontend:
+build: ./frontend
+ports:
+- "80:80"
+depends_on:
+- backend
 
-  backend:
-    build: ./backend
-    ports:
-      - "5000:5000"
+backend:
+build: ./backend
+ports:
+- "5000:5000"
 ```
-### Ejecución
-1. Clona este repositorio en tu máquina local.
+### Execution
+1. Clone this repository to your local machine.
 
 ```cmd
-git clone https://github.com/tu-usuario/tu-repositorio.git
-cd tu-repositorio
+git clone https://github.com/your-user/your-repository.git
+cd your-repository
 ```
-2. Construye y ejecuta los contenedores usando Docker Compose:
+2. Build and run the containers using Docker Compose:
 
 ```cmd
 docker-compose up --build
 ```
-3. Accede a la aplicación:
+3. Access the application:
+- Frontend: Open your browser and visit `http://localhost`.
+- Backend: You can access the API at `http://localhost:5000`.
 
-Frontend: Abre tu navegador y visita http://localhost.
-
-Backend: Puedes acceder a la API en http://localhost:5000.
-
-3. Accede a la aplicación:
-   - Frontend: Abre tu navegador y visita `http://localhost`.
-   - Backend: Puedes acceder a la API en `http://localhost:5000`.
-
-## Estructura de Carpetas
+## Folder Structure
 
 ```txt
-tu-repositorio/
+your-repository/
 ├── frontend/
 │ ├── Dockerfile
 │ ├── index.html
