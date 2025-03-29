@@ -47,7 +47,7 @@ CMD ["python", "app.py"]
 - The `app.py` file contains the Flask server logic.
 - The `requirements.txt` file contains the necessary Python dependencies.
 
-### 3. Docker Compose
+### 3. Docker Compose 
 
 To make it easier to manage both containers, you can use Docker Compose. Here's an example of a `docker-compose.yml` file:
 
@@ -70,8 +70,8 @@ ports:
 1. Clone this repository to your local machine.
 
 ```cmd
-git clone https://github.com/your-user/your-repository.git
-cd your-repository
+git clone https://github.com/Edgarivan01/Project_phrases.git
+cd Project_phrases
 ```
 2. Build and run the containers using Docker Compose:
 
