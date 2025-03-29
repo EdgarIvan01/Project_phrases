@@ -47,7 +47,7 @@ CMD ["python", "app.py"]
 - The `app.py` file contains the Flask server logic.
 - The `requirements.txt` file contains the necessary Python dependencies.
 
-### 3. Docker Compose (optional)
+### 3. Docker Compose
 
 To make it easier to manage both containers, you can use Docker Compose. Here's an example of a `docker-compose.yml` file:
 
